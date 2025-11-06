@@ -1,10 +1,12 @@
-# Aftershock Prediction System 🌍⚡
+# Aftershock Prediction System
 
 A machine learning system for predicting whether an earthquake will trigger aftershocks, built using DBSCAN clustering and Random Forest classification.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: Automated Setup
+To install the necessary dependencies and set up the model automatically, run:
+
 ```bash
 python setup.py
 ```
@@ -21,14 +23,14 @@ python train_model.py
 # aftershock_prediction_clean.ipynb
 ```
 
-## 📊 Model Performance
+## Model Performance
 
 - **Accuracy**: 92.52%
 - **F1-Score**: 0.26 (balanced precision-recall)
 - **ROC-AUC**: 0.87 (strong discriminative ability)
 - **Training Data**: 19,044 global earthquakes
 
-## 🔮 Making Predictions
+## Making Predictions
 
 ### Minimum Required Parameters:
 1. **Magnitude** (e.g., 6.5)
@@ -52,7 +54,7 @@ print(f"Probability: {result['probability_percent']}")
 print(f"Risk Level: {result['risk_level']}")
 ```
 
-## 📁 File Structure
+## File Structure
 
 - **`aftershock_prediction_clean.ipynb`** - Clean prediction interface (USE THIS)
 - **`train_model.py`** - Model training script (run once)
@@ -60,13 +62,13 @@ print(f"Risk Level: {result['risk_level']}")
 - **`requirements.txt`** - Python dependencies
 - **`aftershockPrediction_DBSCAN_RF_bigData.ipynb`** - Original messy notebook (archived)
 
-## 🎯 Risk Levels
+## Risk Levels
 
 - **🟢 LOW RISK** (< 40%): Minimal aftershock activity expected
 - **🟡 MODERATE RISK** (40-70%): Possible aftershock activity, monitor closely
 - **🔴 HIGH RISK** (> 70%): Expect significant aftershock activity
 
-## 🔬 Methodology
+## Methodology
 
 1. **DBSCAN Clustering**: Groups earthquakes into spatio-temporal sequences
 2. **Mainshock Identification**: Earliest earthquake in each cluster
@@ -74,14 +76,14 @@ print(f"Risk Level: {result['risk_level']}")
 4. **Random Forest Classification**: Predicts aftershock triggering probability
 5. **SMOTE Balancing**: Handles class imbalance in training data
 
-## 🛠️ Technical Details
+## Technical Details
 
 - **Algorithm**: Random Forest (500 trees)
 - **Features**: 17 engineered features from basic earthquake parameters
 - **Training**: 80-20 temporal split with SMOTE balancing
 - **Validation**: Out-of-bag scoring and test set evaluation
 
-## 🌍 Applications
+## Applications
 
 - Emergency response planning
 - Earthquake risk assessment
@@ -89,7 +91,7 @@ print(f"Risk Level: {result['risk_level']}")
 - Insurance and risk modeling
 - Public warning systems
 
-## 📈 Model Features
+## Model Features
 
 - **Basic**: magnitude, depth, location
 - **Derived**: magnitude², log(depth), magnitude/depth ratio
@@ -98,7 +100,7 @@ print(f"Risk Level: {result['risk_level']}")
 - **Geographic**: latitude-based features
 - **Categorical**: magnitude type encoding
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 **Model not loading?**
 - Run `python train_model.py` first
@@ -112,7 +114,7 @@ print(f"Risk Level: {result['risk_level']}")
 - Check numeric value ranges (positive depth, valid coordinates)
 - Use supported magnitude types only
 
-## 📚 Dependencies
+## Dependencies
 
 - pandas >= 1.3.0
 - numpy >= 1.20.0
@@ -123,11 +125,11 @@ print(f"Risk Level: {result['risk_level']}")
 - seaborn >= 0.11.0
 - joblib >= 1.1.0
 
-## 🏆 Academic Context
+## Academic Context
 
 This system was developed as part of a Final Year Project (FYP) combining:
 - **Seismological Science**: Based on established earthquake physics
 - **Machine Learning**: Advanced classification and clustering techniques
 - **Practical Application**: Real-world earthquake risk assessment
 
-**Ready to predict earthquake aftershocks! 🌍⚡**
+**Ready to predict earthquake aftershocks!**
