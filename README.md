@@ -60,7 +60,6 @@ print(f"Risk Level: {result['risk_level']}")
 - **`train_model.py`** - Model training script (run once)
 - **`setup.py`** - Automated setup script
 - **`requirements.txt`** - Python dependencies
-- **`aftershockPrediction_DBSCAN_RF_bigData.ipynb`** - Original messy notebook (archived)
 
 ## Risk Levels
 
