@@ -2,27 +2,6 @@
 
 A machine learning system for predicting whether an earthquake will trigger aftershocks, built using DBSCAN clustering and Random Forest classification.
 
-## Quick Start
-
-### Option 1: Automated Setup
-To install the necessary dependencies and set up the model automatically, run:
-
-```bash
-python setup.py
-```
-
-### Option 2: Manual Setup
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
-
-# 2. Train the model (one-time setup)
-python train_model.py
-
-# 3. Open the clean prediction notebook
-# aftershock_prediction_clean.ipynb
-```
-
 ## Model Performance
 
 - **Accuracy**: 92.52%
@@ -30,42 +9,6 @@ python train_model.py
 - **ROC-AUC**: 0.87 (strong discriminative ability)
 - **Training Data**: 19,044 global earthquakes
 
-## Making Predictions
-
-### Minimum Required Parameters:
-1. **Magnitude** (e.g., 6.5)
-2. **Depth** in km (e.g., 15.0)
-3. **Latitude** (e.g., 34.052)
-4. **Longitude** (e.g., -118.243)
-5. **Magnitude Type** ('mw', 'ml', 'mb', 'md', 'ms')
-
-### Example Usage:
-```python
-result = predict_aftershock_triggering(
-    magnitude=7.2,
-    depth=8.5,
-    latitude=34.052,
-    longitude=-118.243,
-    magType_str='mw'
-)
-
-print(f"Will trigger aftershocks: {result['will_trigger_aftershocks']}")
-print(f"Probability: {result['probability_percent']}")
-print(f"Risk Level: {result['risk_level']}")
-```
-
-## File Structure
-
-- **`aftershock_prediction_clean.ipynb`** - Clean prediction interface (USE THIS)
-- **`train_model.py`** - Model training script (run once)
-- **`setup.py`** - Automated setup script
-- **`requirements.txt`** - Python dependencies
-
-## Risk Levels
-
-- **🟢 LOW RISK** (< 40%): Minimal aftershock activity expected
-- **🟡 MODERATE RISK** (40-70%): Possible aftershock activity, monitor closely
-- **🔴 HIGH RISK** (> 70%): Expect significant aftershock activity
 
 ## Methodology
 
@@ -92,12 +35,35 @@ print(f"Risk Level: {result['risk_level']}")
 
 ## Model Features
 
-- **Basic**: magnitude, depth, location
-- **Derived**: magnitude², log(depth), magnitude/depth ratio
-- **Temporal**: hour, day of week, month, year
-- **Regional**: recent seismic activity in 50km radius
-- **Geographic**: latitude-based features
-- **Categorical**: magnitude type encoding
+- **Original input features**
+    - `mag` (magnitude)
+    - `depth`
+    - `latitude`
+    - `longitude`
+
+- **Derived seismic features**
+    - `mag_squared` (`mag`^2)
+    - `depth_log` (`log1p(depth)`)
+    - `mag_depth_ratio` (`mag / (depth + 1)`)
+
+- **Temporal features**
+    - `hour`
+    - `day_of_week`
+    - `month`
+    - `year`
+
+- **Regional activity features (past 30 days, within 50 km)**
+    - `recent_activity_30d`
+    - `recent_avg_mag_30d`
+    - `recent_max_mag_30d`
+
+- **Geographic features**
+    - `lat_abs`
+    - `distance_from_equator`
+
+- **Categorical encoded features**
+    - One-hot encoded magnitude type columns from `magType` using `drop_first=True`
+    - Included as all columns matching `magType_*` in the training data
 
 ## Troubleshooting
 
@@ -123,6 +89,56 @@ print(f"Risk Level: {result['risk_level']}")
 - matplotlib >= 3.5.0
 - seaborn >= 0.11.0
 - joblib >= 1.1.0
+
+## File Structure
+
+- **`aftershock_prediction_clean.ipynb`** - Clean prediction interface (USE THIS)
+- **`train_model.py`** - Model training script (run once)
+- **`setup.py`** - Automated setup script
+- **`requirements.txt`** - Python dependencies
+
+## Risk Levels
+
+- **🟢 LOW RISK** (< 40%): Minimal aftershock activity expected
+- **🟡 MODERATE RISK** (40-70%): Possible aftershock activity, monitor closely
+- **🔴 HIGH RISK** (> 70%): Expect significant aftershock activity
+
+
+## Quick Start
+
+### Option 1: Automated Setup
+To install the necessary dependencies and set up the model automatically, run:
+
+```bash
+python setup.py
+```
+
+### Option 2: Manual Setup
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Train the model (one-time setup)
+python train_model.py
+
+# 3. Open the clean prediction notebook
+# aftershock_prediction_clean.ipynb
+```
+
+### Example Usage:
+```python
+result = predict_aftershock_triggering(
+    magnitude=7.2,
+    depth=8.5,
+    latitude=34.052,
+    longitude=-118.243,
+    magType_str='mw'
+)
+
+print(f"Will trigger aftershocks: {result['will_trigger_aftershocks']}")
+print(f"Probability: {result['probability_percent']}")
+print(f"Risk Level: {result['risk_level']}")
+```
 
 ## Academic Context
 
